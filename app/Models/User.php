@@ -55,4 +55,8 @@ class User extends Authenticatable
 
         return $this->hasMany('App\Models\TecnoData')->where('approved',$approved)->get();
     }
+    public function contacts()
+    {
+        return $this->hasMany('App\Models\Contact')->orderBy('id','desc');
+    }
 }

@@ -9,9 +9,12 @@ class Categoria extends Model
 {
     use HasFactory;
 
-    public function tecnos()
+    public function tecnos($approved = null)
     {
-        return $this->hasMany('App\Models\TecnoData');
+        if ($approved == null) {
+            return $this->hasMany('App\Models\TecnoData');
+        }
+        return $this->hasMany('App\Models\TecnoData')->where('approved', $approved)->get();
     }
     public function hasUser($user_id)
     {

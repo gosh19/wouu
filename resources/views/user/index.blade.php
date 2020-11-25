@@ -86,10 +86,10 @@
                     <div class="bg-gray-100 p-3 h-full">
                         <div class="flex justify-center py-6">
 
-                            <img class="h-16" src="{{ asset('images/camera.png') }}" alt="">
+                            <img class="h-20" src="{{ asset('images/user.png') }}" alt="">
                         </div>
-                        <div>
-                            <p>Usuario desde el {{date_format($user->created_at, 'd-m-Y')}} </p>
+                        <div class="text-center">
+                            <p>Usuario desde el <br> {{date_format($user->created_at, 'd-m-Y')}} </p>
                         </div>
                     </div>
                 </div>
@@ -102,12 +102,17 @@
                     <div class="grid grid-cols-2  text-gray-600 mb-3">
                         <div class="col-span-1">
                             <div class="grid grid-rows-3 gap-2">
-                                <div class="row-span-1">
-                                    <p>DNI: {{$user->userData != null ? $user->userData->dni : ''}}</p>
-                                </div>
-                                <div class="row-span-1">
-                                    <p>Direccion: {{$user->userData != null ? $user->userData->adress : ''}}</p>
-                                </div>
+                                @if (Auth::check())
+                                    @if (Auth::id()==$user->id)
+                                        
+                                        <div class="row-span-1">
+                                            <p>DNI: {{$user->userData != null ? $user->userData->dni : ''}}</p>
+                                        </div>
+                                        <div class="row-span-1">
+                                            <p>Direccion: {{$user->userData != null ? $user->userData->adress : ''}}</p>
+                                        </div>
+                                    @endif
+                                @endif
                                 <div class="row-span-1">
                                     <p>Ciudad: {{$user->userData != null ? $user->userData->city : ''}}</p>
                                 </div>
@@ -136,7 +141,7 @@
                     <div>
 
                         @if (count($user->tecnoDatas(1))!=0)
-                        <div class="my-3 p-2 border-2 border-pink-700 bg-gradient-to-br from-pink-100 to-purple-200">
+                        <div class="my-3 p-2 border-2 border-pink-200 bg-gradient-to-br from-pink-100 to-purple-200">
                             <p class="text-xl font-bold">Especialidades :</p>
                             <hr class="border-1 border-cool-gray-500 my-2">
                             @foreach ($user->tecnoDatas as $j => $tecno)
@@ -154,17 +159,81 @@
                         @endif
                     </div>
                 </div>
+            </div>{{--End card user--}}
+            @if (Auth::id()!=$user->id)
+            
+                <div x-data="{showForm:false}" class="w-1/4 pl-10 ">
+                    <div class="h-full relative rounded shadow-2xl p-0 bg-gradient-to-t from-purple-300 via-purple-100 to-transparent">
+                        <p class="text-blue-800 font-bold mb-3 p-3">
+                            Podes comunicarte directamente con el tecnico 
+                            o dejar tus datos para que se contacte lo antes posible.
+                        </p>
+                        <div class="mx-2">
+                            <button class="w-full tracking-wider text-white rounded py-2 bg-gradient-to-r from-purple-500 to-blue-300 transition-all duration-500 hover:from-blue-300  hover:to-purple-500"
+                                    @click="showForm=!showForm" 
+                            >
+                                Quiero que me contacten
+                            </button>
+                        </div>
+                        <form x-show.transition.duration.1000ms="showForm" 
+                                class="py-2 absolute p-4 mt-2 bg-gradient-to-tr from-pink-300 to-blue-100 rounded"
+                                action="{{route('Problem.sendMessage')}}" method="post"
+                        >
+                            @csrf
+                            <input type="hidden" name="user_id" value="{{$user->id}}">
+                            <input class="w-full p-1 border-2 rounded border-purple-400 mb-2" 
+                                    type="text" name="name" placeholder="Nombre" >
+                            <input class="w-full p-1 border-2 rounded border-purple-400 mb-2" 
+                                type="text" name="phone" placeholder="Telefono de contacto" >
+                            <textarea name="msg" placeholder="¿cual es el inconveniente?"
+                                    class="w-full p-1 border-2 rounded border-purple-400 mb-2"></textarea>
+                            <input type="submit" value="Enviar" class="w-full bg-purple-700 py-2 rounded text-white">
+                        </form>
+                        
+                    </div>
+                </div>
+            @endif
+            
+        </div> 
+        @if (Auth::id()==$user->id)
+            
+            
+            <div class="flex justify-center pb-10">
+                <button class="text-white bg-gradient-to-r from-purple-600 to-blue-600 py-2 px-6 rounded-xl shadow-2xl" 
+                        @click="editData=true"
+                >EDITAR DATOS</button>
+                <button class="text-white ml-10 bg-gradient-to-r from-blue-600 to-green-600 py-2 px-6 rounded-xl shadow-2xl" 
+                        @click="formTecno=true"
+                >POSTULARME COMO TECNICO</button>
             </div>
-        </div> {{--End card user--}}
-
-        <div class="flex justify-center pb-10">
-            <button class="text-white bg-gradient-to-r from-purple-600 to-blue-600 py-2 px-6 rounded-xl shadow-2xl" 
-                    @click="editData=true"
-            >EDITAR DATOS</button>
-            <button class="text-white ml-10 bg-gradient-to-r from-blue-600 to-green-600 py-2 px-6 rounded-xl shadow-2xl" 
-                    @click="formTecno=true"
-            >POSTULARME COMO TECNICO</button>
-        </div>
+            <div class="grid grid-cols-4 mx-5 gap-3">
+                @if (count($user->contacts) != 0)
+                    @php
+                        $i = 0;
+                    @endphp
+                    @foreach ($user->contacts as $contact)
+                        @php
+                            $colors = ['pink','purple','blue','green'];
+                            $theme = $colors[$i];
+                            
+                            if ($i == (count($colors)-1)) {
+                                $i=0;
+                            }else {
+                                $i++;
+                            }
+                        @endphp
+                        <div class="col-span-1 h-full">
+                            <div class="p-2 bg-{{$theme}}-500 border-4 border-{{$theme}}-800 rounded-xl h-full relative">
+                                <p><strong class="text-{{$theme}}-900">Nombre:</strong> {{$contact->name}}</p>
+                                <p><strong class="text-{{$theme}}-900">Tel.:</strong> {{$contact->phone}}</p>
+                                <p class="text-sm text-white overflow-hidden mb-4">{{$contact->msg}}</p>
+                                <small class="absolute bottom-0 right-2">{{date_format($contact->created_at,'d-m-Y')}}</small>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+        @endif
 
         <hr class="border-1 border-purple-800 my-4 mx-5">
 

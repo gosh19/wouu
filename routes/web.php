@@ -11,6 +11,7 @@ use App\Http\Livewire\Auth\Verify;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProblemController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +24,10 @@ use App\Http\Controllers\UserController;
 */
 
 Route::view('/', 'intro.index')->name('home');
+
+Route::get('/Categoria/{categoria}', [ProblemController::class, 'showCategoria'])->name('Categoria.show');
+Route::post('/Contact/senMsg', [ProblemController::class, 'sendMessage'])->name('Problem.sendMessage');
+Route::get('/Tecnico/{user}', [UserController::class, 'index'])->name('Tecnico.show');
 
 Route::middleware('guest')->group(function () {
     Route::get('login', Login::class)
