@@ -4,18 +4,27 @@
     <div class="flex justify-center py-6 mb-3">
         <img class="w-3/4" src="{{ asset('images/inicio.png') }}" alt="Inicio">
     </div>
-    <div x-data="{buscador: false}" class="mb-10">
+    <div x-data="{buscador: false,formProblema: false}" class="mb-10">
         <p class="text-3xl md:text-5xl text-center mb-4">¿Que necesitas?</p> 
         <div class="flex justify-center mx-3 text-white text-sm md:text-xl text-center mb-3">
             <button class="mr-10 bg-gradient-to-r from-pink-600 to-purple-600 py-2 px-6 rounded-xl shadow-2xl"
                     @click="buscador= !buscador"
             >BUSCAR PROFESIONAL</button>
-            <a class="bg-gradient-to-r from-purple-600 to-blue-600 py-2 px-6 rounded-xl shadow-2xl" href="">PUBLICAR UN PROBLEMA</a>
+            <button class="bg-gradient-to-r from-purple-600 to-blue-600 py-2 px-6 rounded-xl shadow-2xl" 
+                    @click="formProblema= !formProblema"
+            >PUBLICAR UN PROBLEMA</button>
         </div>
         <div class="relative">
             <div class="absolute left-0 right-0 z-20 " x-show.transition.in.duration.200ms.out.duration.200ms="buscador">
-                <div class="w-1/2 mx-auto">
+                <div class="md:w-1/2 mx-auto">
                     @livewire('buscador', key($user->id))
+                </div>
+            </div>
+        </div>
+        <div class="relative">
+            <div class="absolute left-0 right-0 z-20 " x-show.transition.in.duration.200ms.out.duration.200ms="formProblema">
+                <div class="md:w-1/2 mx-auto">
+                    {{--aca va la wea de publicar un problema--}}
                 </div>
             </div>
         </div>

@@ -3,17 +3,17 @@
 @section('body')
     <div x-data="{editData: false, formTecno: false}" class="relative">
 
-        <div x-show.transition.duration.300ms="editData" class="left-0 right-0 h-full absolute bg-black bg-opacity-50">
+        <div x-show.transition.duration.300ms="editData" class="left-0 right-0 h-full absolute z-50 bg-black bg-opacity-50">
             <form action="{{route('User.editUserData',['user'=> $user])}}" method="post">
                 @csrf
             
-                <div @click.away="editData = false" class="bg-gradient-to-br from-pink-100 to-purple-300 mt-5 mx-1/4 p-3 border-2 rounded-lg border-black">
+                <div @click.away="editData = false" class="bg-gradient-to-br from-pink-100 to-purple-300 mt-5 md:mx-1/4 p-3 border-2 rounded-lg border-black">
                     <div class="flex justify-between">
                         <p class="text-xl">Edita tus datos personales</p>
                         <button x-show.transition.duration.300ms="editData" @click="editData= false" ><i class="far fa-times-circle fa-2x text-red-600"></i></button>
                     </div>
                     <hr class="border-1 border-red-700 my-2">
-                    <div class="grid grid-cols-2  text-gray-600 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 text-gray-600 gap-4">
 
                         <div class="col-span-1">
                             <div class="grid grid-rows-3 gap-2">
@@ -60,8 +60,8 @@
             </form>
         </div>{{--End modal editar datos--}}
 
-        <div x-show.transition.duration.300ms="formTecno" class="left-0 right-0 h-full absolute bg-black bg-opacity-50">           
-            <div @click.away="formTecno = false" class="bg-gradient-to-br from-pink-100 to-purple-300 mt-5 mx-1/4 p-3 border-2 rounded-lg border-black">
+        <div x-show.transition.duration.300ms="formTecno" class="left-0 right-0 h-full absolute z-50 bg-black bg-opacity-50">           
+            <div @click.away="formTecno = false" class="bg-gradient-to-br from-pink-100 to-purple-300 mt-5 md:mx-1/4 p-3 border-2 rounded-lg border-black">
                 @foreach ($categorias as $j => $categoria)
                     <div class="flex justify-between my-2">
                         <p>{{$categoria->name}}</p>
@@ -80,8 +80,8 @@
         </div>
 
 
-        <div class="py-10 flex justify-center ">
-            <div class="w-3/5 grid grid-cols-3 bg-white rounded-lg  shadow-2xl">
+        <div class="py-10 px-3 grid grid-cols-3  md:flex md:justify-center">
+            <div class="w-full md:w-2/3 col-span-3 grid grid-cols-3 bg-white rounded-lg  shadow-2xl">
                 <div class="col-span-1 h-full">
                     <div class="bg-gray-100 p-3 h-full">
                         <div class="flex justify-center py-6">
@@ -99,9 +99,9 @@
                     </div>
 
                     
-                    <div class="grid grid-cols-2  text-gray-600 mb-3">
+                    <div class="grid grid-cols-1 md:grid-cols-2  text-gray-600 mb-3">
                         <div class="col-span-1">
-                            <div class="grid grid-rows-3 gap-2">
+                            <div class="grid grid-rows-3 gap-2 mb-1">
                                 @if (Auth::check())
                                     @if (Auth::id()==$user->id)
                                         
@@ -124,13 +124,13 @@
                         <div class="col-span-1">
                             <div class="grid grid-rows-3 gap-2">
                                 <div class="row-span-1">
-                                    <p>E-mail: {{$user->email}}</p>
+                                    <strong>{{$user->email}}</strong>
                                 </div>
                                 <div class="row-span-1">
                                     <p>Barrio: {{$user->userData != null ? $user->userData->barrio : ''}}</p>
                                 </div>
                                 <div class="row-span-1">
-                                    <p>Telefono: {{$user->userData != null ? $user->userData->phone : ''}}</p>
+                                    <p><strong>Telefono:</strong> {{$user->userData != null ? $user->userData->phone : ''}}</p>
                                 </div>
                                 <div class="row-span-1">
                                     <p>Telefono alt.: {{$user->userData != null ? $user->userData->phone_alt : '-'}}</p>
@@ -162,8 +162,8 @@
             </div>{{--End card user--}}
             @if (Auth::id()!=$user->id)
             
-                <div x-data="{showForm:false}" class="w-1/4 pl-10 ">
-                    <div class="h-full relative rounded shadow-2xl p-0 bg-gradient-to-t from-purple-300 via-purple-100 to-transparent">
+                <div x-data="{showForm:false}" class="col-span-3 md:col-span-1 md:pl-10 ">
+                    <div class="py-3 relative rounded shadow-2xl p-0 bg-gradient-to-t from-purple-300 via-purple-100 to-transparent">
                         <p class="text-blue-800 font-bold mb-3 p-3">
                             Podes comunicarte directamente con el tecnico 
                             o dejar tus datos para que se contacte lo antes posible.
@@ -206,7 +206,7 @@
                         @click="formTecno=true"
                 >POSTULARME COMO TECNICO</button>
             </div>
-            <div class="grid grid-cols-4 mx-5 gap-3">
+            <div class="grid grid-cols-1 md:grid-cols-4 mx-5 gap-3">
                 @if (count($user->contacts) != 0)
                     @php
                         $i = 0;
@@ -222,12 +222,13 @@
                                 $i++;
                             }
                         @endphp
+                        
                         <div class="col-span-1 h-full">
                             <div class="p-2 bg-{{$theme}}-500 border-4 border-{{$theme}}-800 rounded-xl h-full relative">
                                 <p><strong class="text-{{$theme}}-900">Nombre:</strong> {{$contact->name}}</p>
                                 <p><strong class="text-{{$theme}}-900">Tel.:</strong> {{$contact->phone}}</p>
                                 <p class="text-sm text-white overflow-hidden mb-4">{{$contact->msg}}</p>
-                                <small class="absolute bottom-0 right-2">{{date_format($contact->created_at,'d-m-Y')}}</small>
+                                <small class="absolute bottom-0 right-2 text-{{$theme}}-200">{{date_format($contact->created_at,'d-m-Y')}}</small>
                             </div>
                         </div>
                     @endforeach
@@ -240,7 +241,7 @@
         <div class="pb-3">
             <p class="text-center text-4xl font-bold text-purple-800 mb-3">Historial de trabajos realizados</p>
 
-            <div class="py-2 px-4 shadow-2xl border-2 border-pink-700 mx-1/5 bg-white">
+            <div class="py-2 px-4 shadow-2xl border-2 border-pink-700 mx-1/12 md:mx-1/5 bg-white">
                 <p class="text-gray-500 ">Aun no hay trabajos para mostrar</p>
             </div>
         </div>
@@ -250,7 +251,7 @@
         <div class="pb-3">
             <p class="text-center text-4xl font-bold text-blue-800 mb-3">Historial de trabajos pedidos</p>
 
-            <div class="py-2 px-4 shadow-2xl border-2 border-purple-700 mx-1/5 bg-white">
+            <div class="py-2 px-4 shadow-2xl border-2 border-purple-700 mx-1/12 md:mx-1/5 bg-white">
                 <p class="text-gray-500 ">Aun no hay trabajos para mostrar</p>
             </div>
         </div>

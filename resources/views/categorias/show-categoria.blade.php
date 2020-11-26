@@ -7,8 +7,8 @@
             <p class="text-4xl flex-1 self-center font-bold text-white tracking-widest">{{$selected->name}}</p>
         </div>
         <hr class="border-4 border-pink-600 mb-4">
-        <div class="grid grid-cols-4 gap-4 px-2">
-            <div class="col-span-1 border-r-2 border-l-2 border-blue-600 px-1">
+        <div class="grid grid-cols-3 md:grid-cols-4 gap-4 px-2">
+            <div class="col-span-1 hidden md:block border-r-2 border-l-2 border-blue-600 px-1">
                 <div class="py-4">
 
                     @foreach ($categorias as $i => $categoria)
@@ -24,7 +24,7 @@
             <div class="col-span-3">
 
                 <p class="text-2xl font-bold mb-2">Busca el tecnico que mas te guste</p>
-                <div class="grid grid-cols-3 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     @foreach ($selected->tecnos(1) as $key => $tecnico)
                         <div class="col-span-1 border-2 border-gray-400 shadow-xl p-2">
                             <div class="flex">
