@@ -37,6 +37,23 @@ class Register extends Component
             'password' => Hash::make($this->password),
         ]);
 
+        try {
+            //$informacionSolicitud = file_get_contents("http://www.geoplugin.net/json.gp?ip=".\Request::ip());
+            $informacionSolicitud = file_get_contents("http://www.geoplugin.net/json.gp?ip=200.127.250.104");
+            $dataSolicitud = json_decode($informacionSolicitud);
+
+            $userData = new \App\Models\UserData;
+
+            $userData->user_id = $user->id;
+            $userData->city = $dataSolicitud->geoplugin_city;
+            $userData->province = $dataSolicitud->geoplugin_region;
+
+            $userData->save();
+
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
         event(new Registered($user));
 
         Auth::login($user, true);

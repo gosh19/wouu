@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProblemController;
+use App\Http\Controllers\WorkController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,12 +23,22 @@ use App\Http\Controllers\ProblemController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/asd', function () {
+    
+    //$informacionSolicitud = file_get_contents("http://www.geoplugin.net/json.gp?ip=".\Request::ip());
+    $informacionSolicitud = file_get_contents("http://www.geoplugin.net/json.gp?ip=200.127.250.104");
+    $dataSolicitud = json_decode($informacionSolicitud);
+
+    return var_dump($dataSolicitud);
+});
 
 Route::view('/', 'intro.index')->name('home');
 
 Route::get('/Categoria/{categoria}', [ProblemController::class, 'showCategoria'])->name('Categoria.show');
 Route::post('/Contact/senMsg', [ProblemController::class, 'sendMessage'])->name('Problem.sendMessage');
 Route::get('/Tecnico/{user}', [UserController::class, 'index'])->name('Tecnico.show');
+Route::get('/Works/Pendientes', [WorkController::class, 'index'])->name('Work.index');
+Route::get('/Work/show-work/{work}', [WorkController::class, 'showWork'])->name('Work.show');
 
 Route::middleware('guest')->group(function () {
     Route::get('login', Login::class)
@@ -71,5 +82,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/Admin/editApproved/{tecno}/{approved}', [AdminController::class, 'editApproved'])->name('Admin.editApproved');
 
         
+    });
+
+    /****TECNICO */
+    Route::middleware('tecnico')->group(function () {
+        
+        Route::post('/Work/show-work/{work}', [WorkController::class, 'postulate'])->name('Work.postulate');
     });
 });

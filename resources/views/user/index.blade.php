@@ -252,7 +252,37 @@
             <p class="text-center text-4xl font-bold text-blue-800 mb-3">Historial de trabajos pedidos</p>
 
             <div class="py-2 px-4 shadow-2xl border-2 border-purple-700 mx-1/12 md:mx-1/5 bg-white">
+                @if (count($user->worksPedidos) == 0)
                 <p class="text-gray-500 ">Aun no hay trabajos para mostrar</p>
+                @else
+                <div class="grid grid-flow-row">
+
+                    @foreach ($user->worksPedidos as $key => $work)
+                    <div id="{{$key}}" class="w-full grid grid-cols-5 border border-purple-500 gap-2 p-2 mb-2">
+                        <div class="col-span-2">
+
+                            <p class="text-xl font-bold text-purple-800"> <a href="{{route('Work.show',['work'=>$work])}}">{{$work->title}}</a></p>
+                            <p class="text-gray-500">{{$work->description}}</p>
+                            <div class="my-2">
+                                <div class="">
+                                    <strong class="text-blue-500">Estado:</strong> <span>Pendiente</span>
+                                </div>
+                                <div>
+                                    <a href="{{route('Work.show',['work'=>$work])}}"><strong class="text-pink-700">Cantidad de propuetas: </strong>{{count($work->postulations)}}</a>
+                                </div>
+                            </div>
+                        </div>
+                        @if (count($work->imgs) != 0)
+                            @foreach ($work->imgs as $img)
+                                <div class="col-span-1 h-48 overflow-hidden">
+                                    <img class="w-full" src="{{$img->url}}">
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+                    @endforeach
+                </div>
+                @endif
             </div>
         </div>
         

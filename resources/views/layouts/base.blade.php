@@ -35,9 +35,10 @@
                     <a class="h-full" href="{{route('home')}}">
                         <img class="h-full" src="{{ asset('images/logo.png') }}" alt="Wouu">
                     </a>
-                    <div class=" border hidden md:flex border-gray-300 py-1 px-2 rounded-xl">
-                        <input class="py-1" type="text" placeholder="¿Que estas buscando?">
-                        <i class="fas fa-search flex-1 self-center"></i>
+                    <div class="flex">
+                        <a href="{{route('Work.index')}}"
+                            class="flex-1 self-center py-1 px-3 rounded-2xl bg-gradient-to-r from-orange-500 via-red-500 to-pink-600 text-white"
+                                >TRABAJOS PEDIDOS <i class="fas fa-screwdriver"></i></a>
                     </div>
                     <div class="flex ">
                         @auth

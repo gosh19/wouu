@@ -59,4 +59,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Contact')->orderBy('id','desc');
     }
+
+    public function worksPedidos()
+    {
+        return $this->hasMany('App\Models\Work');
+    }
+
+    public function postulations()
+    {
+        return $this->hasMany('App\Models\Postulation');
+    }
 }
