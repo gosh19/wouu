@@ -65,8 +65,13 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Work');
     }
 
-    public function postulations()
+    public function postulations($case = null)
     {
-        return $this->hasMany('App\Models\Postulation');
+        if ($case == null) {
+
+            return $this->hasMany('App\Models\Postulation');
+        }
+
+        return $this->hasMany('App\Models\Postulation')->where('state','selected')->get();
     }
 }

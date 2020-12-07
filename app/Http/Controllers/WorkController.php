@@ -35,4 +35,16 @@ class WorkController extends Controller
 
         return redirect()->back();
     }
+
+    public function acceptTecno(\App\Models\Postulation $postulation, Work $work)
+    {
+        $work->tecnico = $postulation->user_id;
+        $work->state = "in_process";
+        $work->save();
+
+        $postulation->state = 'selected';
+        $postulation->save();
+
+        return redirect()->back();
+    }
 }

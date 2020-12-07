@@ -15,7 +15,7 @@
         <div class="col-span-2">
             <div class="border-2 border-blue-600 p-3 mb-3">
                 <div>
-                    <p class="font-bold text-2xl">{{$work->title}}</p>
+                    <p class="font-bold text-2xl text-blue-700">{{$work->title}}</p>
                 </div>
                 <hr>
                 <div class="my-2">
@@ -24,7 +24,9 @@
             </div>
             @if (count($work->imgs) != 0)
                 
-            <div class="border-2 border-pink-600 p-5 ">
+            <div class="border-2 border-pink-600 p-3 ">
+                <p class="text-xl font-bold text-pink-500">Imagenes descriptivas del problema</p>
+                <hr class="border-2 border-pink-600 my-3">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 h-56">
                     @foreach ($work->imgs as $key => $img)
                         <div class="col-span-1 h-full overflow-hidden">
@@ -59,7 +61,7 @@
             <div class="border-2 grid grid-flow-row border-indigo-800 p-2 bg-gradient-to-br from-white to-indigo-300">
                 <p class="text-2xl text-purple-800 font-bold tracking-wider p-3">
                     <i class="fas fa-user-astronaut fa-2x"></i> 
-                    {{Auth::user()->name}} 
+                    {{Auth::check() ? Auth::user()->name:'Sin registrar'}} 
                     <span class="text-lg text-gray-500">{{$work->categoria->hasUser(Auth::id()) == null?'':' - Tecnico en '.$work->categoria->name}}</span>
                 </p>
 
@@ -106,17 +108,21 @@
                 
             </div>
         </div>
-        
     </div>
+
+    @if ($work->postSelected() != null)
+        @livewire('work.score', ['postulation' => $work->postSelected()])
+    @endif
+
     <hr class="border-2 border-pink-600 my-5">
     <div class="grid grid-flow-row md:grid-cols-2 gap-4">
         @php
-            $colors = ['orange','red','pink','blue','purple','teal','indigo','green','gray'];
+            $colors = ['orange','red','pink','blue','purple','teal','indigo','gray'];
             $i = rand(0,(count($colors)-1));
         @endphp
         @foreach ($work->postulations as $key => $postulation)
             <div class="p-3 border-2 border-{{$colors[$i]}}-700 md:col-span-1 bg-gradient-to-br from-white to-{{$colors[$i]}}-200">
-                <p class="text-xl text-{{$colors[$i]}}-600 font-bold"> {{--PASAR AL COMPONENTE LIVEWIRE Y HACER DINAMICO CON ALPINEJS--}}
+                <p class="text-xl text-{{$colors[$i]}}-600 font-bold">
                     <a href="{{route('Tecnico.show',['user'=>$postulation->user])}}">
                         <i class="fas fa-user-cog"></i> {{$postulation->user->name}}
                         <span class="text-lg text-gray-500">
@@ -135,14 +141,20 @@
                     </div>
                     <div>
                         <p class="text-2xl font-bold text-{{$colors[$i]}}-700 tracking-widest"><i class="fas fa-dollar-sign"></i> {{$postulation->presupuesto}}</p>
-                        <p></p>
+                        @if ($work->user->id == Auth::id() && $work->postSelected() == null)
+                            
+                        <a class="w-full py-1 px-4 rounded border-2 border-{{$colors[$i]}}-700 text-center text-lg  text-white tracking-wider bg-gradient-to-r from-{{$colors[$i]}}-500 to-{{$colors[$i]}}-900"
+                        onclick="return confirm('¿Seguro/a que desea elegir el presupuesto de {{$postulation->user->name}} por $ {{$postulation->presupuesto}}? ')"
+                        href="{{route('Work.acceptTecno',['postulation'=>$postulation,'work'=>$work])}}"
+                        >Elegir</a>
+                        @endif
                     </div>
                 </div>
             </div>
 
-        @php
-            $i = rand(0,(count($colors)-1));
-        @endphp
+            @php
+                $i = rand(0,(count($colors)-1));
+            @endphp
         @endforeach
     </div>
 

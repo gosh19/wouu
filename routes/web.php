@@ -23,14 +23,7 @@ use App\Http\Controllers\WorkController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/asd', function () {
-    
-    //$informacionSolicitud = file_get_contents("http://www.geoplugin.net/json.gp?ip=".\Request::ip());
-    $informacionSolicitud = file_get_contents("http://www.geoplugin.net/json.gp?ip=200.127.250.104");
-    $dataSolicitud = json_decode($informacionSolicitud);
 
-    return var_dump($dataSolicitud);
-});
 
 Route::view('/', 'intro.index')->name('home');
 
@@ -73,6 +66,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/User/edit-data/{user}', [UserController::class, 'editUserData'])->name('User.editUserData');
     Route::get('/User/postulacionTecnico/{user}/{categoria}', [UserController::class, 'postulacionTecnico'])->name('User.postulacionTecnico');
 
+    Route::get('/accept-tecno/{postulation}/{work}', [WorkController::class, 'acceptTecno'])->name('Work.acceptTecno');
 
     /****ADMIN */
     Route::middleware('admin')->group(function () {

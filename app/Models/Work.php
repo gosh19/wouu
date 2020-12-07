@@ -32,4 +32,9 @@ class Work extends Model
     {
         return $this->hasMany('App\Models\Postulation');
     }
+
+    public function postSelected()
+    {
+        return $this->hasMany('App\Models\Postulation')->where('state','selected')->first();
+    }
 }

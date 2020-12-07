@@ -242,7 +242,29 @@
             <p class="text-center text-4xl font-bold text-purple-800 mb-3">Historial de trabajos realizados</p>
 
             <div class="py-2 px-4 shadow-2xl border-2 border-pink-700 mx-1/12 md:mx-1/5 bg-white">
-                <p class="text-gray-500 ">Aun no hay trabajos para mostrar</p>
+                
+                @if (count($user->postulations(1)) != 0)
+                <div class="grid grid-cols-4 gap-3">
+
+                    @foreach ($user->postulations(1) as $key => $value)
+                        <div class="col-span-1">
+                            <u class="text-lg font-bold text-red-400">Trabajo realizado</u>
+                            <p>{{$value->work->title}}</p>
+                            <div class="border-2 border-red-700 p-2 bg-gradient-to-br from-red-400 to-purple-200">
+                                <p class="font-bold text-lg">Cliente</p>
+                            </div>
+                            <div class="border-2 border-red-700 p-2">
+
+                                <p><strong class="text-yellow-600">Calificacion:</strong> {{$value->score}} <i class="fas fa-star text-yellow-300"></i></p>
+                                <hr class="my-1">
+                                <p>{{$value->comment}}</p>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                @else
+                    <p class="text-gray-500 ">Aun no hay trabajos para mostrar</p>
+                @endif
             </div>
         </div>
 
@@ -265,10 +287,21 @@
                             <p class="text-gray-500">{{$work->description}}</p>
                             <div class="my-2">
                                 <div class="">
-                                    <strong class="text-blue-500">Estado:</strong> <span>Pendiente</span>
+                                    <strong class="text-blue-500">Estado:</strong> <span>{{$work->state}}</span>
                                 </div>
                                 <div>
                                     <a href="{{route('Work.show',['work'=>$work])}}"><strong class="text-pink-700">Cantidad de propuetas: </strong>{{count($work->postulations)}}</a>
+                                </div>
+                                <div>
+
+                                    @if ($work->postSelected() != null)
+                                        <div class="">
+                                            <strong class="text-yellow-500">Tecnico:</strong> <a href="{{route('Tecnico.show',['user'=>$work->postSelected()->user])}}">{{$work->postSelected()->user->name}}</a>
+                                        </div>
+                                        <div class="">
+                                            <strong class="text-yellow-500">Calificacion:</strong> <span>{{$work->postSelected()->score}}</span>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
