@@ -65,6 +65,23 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Work');
     }
 
+    public function workDisponible()
+    {
+        $works=['works'=>[],'cant'=>0];
+        foreach ($this->tecnoDatas(1) as $key => $tecno) {
+            foreach ($tecno->WorkDisponible() as $key => $work) {
+                similar_text($work->userData()->city, $this->userData->city, $porcentaje);
+                if ($porcentaje > 65) {
+                    # code...
+                    $works['works'][]=$work;
+                    $works['cant'] ++;
+                }
+            }
+        }
+
+        return $works;
+    }
+
     public function postulations($case = null)
     {
         if ($case == null) {

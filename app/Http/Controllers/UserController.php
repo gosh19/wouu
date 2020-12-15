@@ -10,9 +10,11 @@ class UserController extends Controller
 {
     public function index(User $user = null)
     {
+
         if ($user == null) {
             $user = Auth::user();
         }
+
         $categorias = \App\Models\Categoria::all();
 
         return view('user.index',[

@@ -22,4 +22,11 @@ class TecnoData extends Model
     {
         return $this->belongsTo('App\Models\Categoria');
     }
+
+    public function WorkDisponible()
+    {
+        $works = Work::where([['tecnico',null],['cat_id',$this->categoria_id]])->get();
+
+        return $works;
+    }
 }

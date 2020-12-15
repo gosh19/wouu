@@ -37,8 +37,34 @@
                     </a>
                     <div class="flex">
                         <a href="{{route('Work.index')}}"
-                            class="flex-1 self-center py-1 px-3 rounded-2xl bg-gradient-to-r from-orange-500 via-red-500 to-pink-600 text-white"
-                                >TRABAJOS PEDIDOS <i class="fas fa-screwdriver"></i></a>
+                            class="flex flex-1 self-center py-1 px-3 text-xs md:text-base rounded-2xl bg-gradient-to-r from-orange-500 via-red-500 to-pink-600 text-white"
+                                >
+                                    <p class="hidden md:block mr-2">TRABAJOS</p>
+                                    <p>PEDIDOS</p>
+                                    <i class="fas fa-screwdriver flex-1 self-center ml-1"></i>
+                                
+
+                        </a>
+                        @auth
+                            @if (Auth::user()->workDisponible()['cant'] != 0)
+                            
+                            <div x-data={open:true} class="flex-2 relative self-center" >
+                                    <strong class=" text-white bg-purple-600 px-1 ml-1 rounded-lg">{{Auth::user()->workDisponible()['cant']}}</strong>
+                                    @if (session('showWorks'))
+                                        
+                                    <div class="absolute top-15 right-0 w-56 bg-purple-500 z-50 rounded-xl text-white">
+                                        
+                                        <div x-show="open" class="text-center py-2 relative">
+                                            <div @click="open=false" class="absolute right-3 top-0 cursor-pointer font-bold">x</div>
+                                            <p class="px-7">
+                                                ¡Tienes {{Auth::user()->workDisponible()['cant']}} trabajos disponibles para ver!
+                                            </p>
+                                        </div>
+                                    </div>
+                                    @endif
+                                </div>
+                            @endif
+                        @endauth
                     </div>
                     <div class="flex ">
                         @auth
@@ -47,9 +73,11 @@
                                     href="{{ route('Admin.index') }}"
                                 >Admin <i class="fas fa-users-cog"></i></a>
                             @endif
-                            <a class="px-2 py-1 flex-auto self-center mr-2 tracking-wider text-sm text-white rounded-2xl bg-gradient-to-r from-pink-600 to-purple-600" 
+                            <a class="px-2 py-1 flex flex-auto self-center mr-2 tracking-wider text-sm text-white rounded-2xl bg-gradient-to-r from-pink-600 to-purple-600" 
                             href="{{ route('User.index') }}"
-                            >MI CUENTA <i class="fas fa-user-circle"></i></a>
+                            >
+                            <p class="hidden md:block mr-2">MI CUENTA</p>
+                             <i class="fas fa-user-circle flex-1 self-center"></i></a>
                             <a class="flex-auto self-center text-sm py-1 px-2  text-white rounded-2xl bg-gradient-to-r from-purple-600 to-blue-600" 
                             href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();"

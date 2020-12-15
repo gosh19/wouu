@@ -18,6 +18,11 @@ class Work extends Model
         return $this->belongsTo('App\Models\User');
     }
 
+    public function userData()
+    {
+        return \App\Models\UserData::where('user_id',$this->user_id)->first();
+    }
+
     public function imgs()
     {
         return $this->hasMany('App\Models\WorkImage');

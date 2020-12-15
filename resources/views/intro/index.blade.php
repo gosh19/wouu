@@ -24,7 +24,7 @@
                         <p class="text-xl font-bold mb-1">Primero debes <a class="text-pink-900" href="{{route('register')}}">registrarte.</a></p>
                         <hr class="border-1 border-pink-700 mb-6">
                         <p class="mb-3">
-                            Preisona en <a class="font-bold text-pink-800" href="{{route('register')}}">Registarte</a> y completa el 
+                            Presiona en <a class="font-bold text-pink-800" href="{{route('register')}}">Registarte</a> y completa el 
                             formulario de registro con tus datos. Recuerda colocar un <strong>email</strong> que utilizes.
                     </div>
                 </div>

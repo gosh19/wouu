@@ -18,36 +18,59 @@
                         <div class="col-span-1">
                             <div class="grid grid-rows-3 gap-2">
                                 <div class="row-span-1 flex justify-between">
-                                    <label class="text-red-800">DNI: </label>
-                                    <input type="text" name="dni" class="border-2 border-red-800 rounded ml-2" value="{{$user->userData != null ? $user->userData->dni : ''}}">
+                                    <label class="text-purple-800 font-bold">DNI: </label>
+                                    <input type="text" name="dni" class="border-2 border-purple-400 rounded ml-2" value="{{$user->userData != null ? $user->userData->dni : ''}}">
                                 </div>
                                 <div class="row-span-1 flex justify-between">
-                                    <label class="text-red-800">Direccion: </label>
-                                    <input type="text" name="adress" class="border-2 border-red-800 rounded ml-2" value="{{$user->userData != null ? $user->userData->adress : ''}}">
+                                    <label class="text-purple-800 font-bold">Direccion: </label>
+                                    <input type="text" name="adress" class="border-2 border-purple-400 rounded ml-2" value="{{$user->userData != null ? $user->userData->adress : ''}}">
                                 </div>
                                 <div class="row-span-1 flex justify-between">
-                                    <label class="text-red-800">Barrio: </label>
-                                    <input type="text" name="barrio" class="border-2 border-red-800 rounded ml-2" value="{{$user->userData != null ? $user->userData->barrio : ''}}">
+                                    <label class="text-purple-800 font-bold">Barrio: </label>
+                                    <input type="text" name="barrio" class="border-2 border-purple-400 rounded ml-2" value="{{$user->userData != null ? $user->userData->barrio : ''}}">
                                 </div>
                                 <div class="row-span-1 flex justify-between">
-                                    <label class="text-red-800">Telefono: </label>
-                                    <input type="text" name="phone" class="border-2 border-red-800 rounded ml-2" value="{{$user->userData != null ? $user->userData->phone : ''}}">
+                                    <label class="text-purple-800 font-bold">Telefono: </label>
+                                    <input type="text" name="phone" class="border-2 border-purple-400 rounded ml-2" value="{{$user->userData != null ? $user->userData->phone : ''}}">
                                 </div>
                             </div>
                         </div>
                         <div class="col-span-1">
                             <div class="grid grid-rows-3 gap-2">
                                 <div class="row-span-1 flex justify-between">
-                                    <label class="text-red-800">Ciudad: </label>
-                                    <input type="text" name="city" class="border-2 border-red-800 rounded ml-2" value="{{$user->userData != null ? $user->userData->city : ''}}">
+                                    <label class="text-purple-800 font-bold">Ciudad: </label>
+                                    <input type="text" name="city" class="border-2 border-purple-400 rounded ml-2" value="{{$user->userData != null ? $user->userData->city : ''}}">
                                 </div>
                                 <div class="row-span-1 flex justify-between">
-                                    <label class="text-red-800">Provincia: </label>
-                                    <input type="text" name="province" class="border-2 border-red-800 rounded ml-2" value="{{$user->userData != null ? $user->userData->province : ''}}">
-                                </div>
+                                    <label class="text-purple-800 font-bold">Provincia: </label>
+                                    <select class="border-2 border-purple-400 rounded w-full ml-2" id="province" name="provincia" >
+                                        <option value="Buenos Aires">Bs. As.</option>
+                                        <option value="Catamarca">Catamarca</option>
+                                        <option value="Chaco">Chaco</option>
+                                        <option value="Chubut">Chubut</option>
+                                        <option value="Cordoba">Cordoba</option>
+                                        <option value="Corrientes">Corrientes</option>
+                                        <option value="Entre Rios">Entre Rios</option>
+                                        <option value="Formosa">Formosa</option>
+                                        <option value="Jujuy">Jujuy</option>
+                                        <option value="La Pampa">La Pampa</option>
+                                        <option value="La Rioja">La Rioja</option>
+                                        <option value="Mendoza">Mendoza</option>
+                                        <option value="Misiones">Misiones</option>
+                                        <option value="Neuquen">Neuquen</option>
+                                        <option value="Rio Negro">Rio Negro</option>
+                                        <option value="Salta">Salta</option>
+                                        <option value="San Juan">San Juan</option>
+                                        <option value="San Luis">San Luis</option>
+                                        <option value="Santa Cruz">Santa Cruz</option>
+                                        <option value="Santa Fe">Santa Fe</option>
+                                        <option value="Sgo. del Estero">Sgo. del Estero</option>
+                                        <option value="Tierra del Fuego">Tierra del Fuego</option>
+                                        <option value="Tucuman">Tucuman</option>
+                                    </select>                                </div>
                                 <div class="row-span-1 flex justify-between">
-                                    <label class="text-red-800">Telefono alt.: </label>
-                                    <input type="text" name="phone_alt" class="border-2 border-red-800 rounded ml-2" value="{{$user->userData != null ? $user->userData->phone_alt : ''}}">
+                                    <label class="text-purple-800 font-bold">Telefono alt.: </label>
+                                    <input type="text" name="phone_alt" class="border-2 border-purple-400 rounded ml-2" value="{{$user->userData != null ? $user->userData->phone_alt : ''}}">
                                 </div>
                             </div>
                         </div>

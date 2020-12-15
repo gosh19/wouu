@@ -44,11 +44,11 @@
                 </div>
                 <div class="p-2 bg-gradient-to-br from-white to-purple-200">
                     <p><strong class="text-gray-700">Nombre: </strong>{{$work->user->name}}</p>
-                    <p><strong class="text-gray-700">Telefono: </strong>{{$work->user->phone}}</p>
-                    <p><strong class="text-gray-700">Telefono alt.: </strong>{{$work->user->phone_alt}}</p>
-                    <p><strong class="text-gray-700">Provincia: </strong>{{$work->user->province}}</p>
-                    <p><strong class="text-gray-700">Localidad: </strong>{{$work->user->city}}</p>
-                    <p><strong class="text-gray-700">Barrio: </strong>{{$work->user->barrio}}</p>
+                    <p><strong class="text-gray-700">Telefono: </strong>{{$work->user->userData->phone}}</p>
+                    <p><strong class="text-gray-700">Telefono alt.: </strong>{{$work->user->userData->phone_alt}}</p>
+                    <p><strong class="text-gray-700">Provincia: </strong>{{$work->user->userData->province}}</p>
+                    <p><strong class="text-gray-700">Localidad: </strong>{{$work->user->userData->city}}</p>
+                    <p><strong class="text-gray-700">Barrio: </strong>{{$work->user->userData->barrio}}</p>
                     <p class="text-red-500"><strong class="text-gray-700">Domicilio: </strong> Dato oculto</p>
                 </div>
             </div>

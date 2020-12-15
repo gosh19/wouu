@@ -31,7 +31,7 @@ class Login extends Component
 
             return;
         }
-
+        session()->flash('showWorks',true);
         return redirect()->intended(route('User.index')); 
     }
 
