@@ -22,7 +22,9 @@
 
             </div>
             <div class="flex">
-
+                @if ()
+                    
+                @endif
                 @for ($i = 0; $i < 5; $i++)
                     <div @mouseover="changeColor({{$i}});" wire:click="setScore({{$i+1}})" x-bind:class="color[{{$i}}]">
                         <i  class="fas fa-star text-xl mr-2"></i>

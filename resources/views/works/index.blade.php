@@ -11,33 +11,41 @@
 
 @section('body')
     <div class="container p-3">
-        <div class="grid grid-flow-row grid-cols-1 md:grid-cols-4 gap-3 bg-">
-            @foreach ($works as $key => $work)
+        @auth
+        <div class="mb-3">
+
+            <p>{{Auth::user()->userData != null ? Auth::user()->userData->province.' - '.Auth::user()->userData->city:''}}</p>   
+        </div>
+        @endauth
+        @if ($works != null)
+            <p class="text-3xl font-bold text-{{$colors[$i]}}-400">Trabajos para vos</p>
+            <hr class="border-2 border-{{$colors[$i]}}-800 my-2">
+            @if (count($works) == 0)
+                <div class="border-2 border-pink-600 p-3">
+                    <p>
+                        No hay trabajos en tu zona aun
+                    </p>
+                </div>
+            @endif
+            <div class="grid grid-flow-row grid-cols-1 md:grid-cols-4 gap-5">
+                
+                @foreach ($works['works'] as $key => $work)
+                    <div class="col-span-1">
+                        @include('works.box-work',['work'=>$work])
+                    </div>    
+                    @php
+                        $i = rand(0,(count($colors)-1));
+                    @endphp
+                @endforeach
+            </div>
+            <div class="mb-5"></div>
+        @endif
+        <p class="text-3xl font-bold text-{{$colors[$i]}}-400">Ultimas publicaciones</p>
+        <hr class="border-2 border-{{$colors[$i]}}-800 my-2">
+        <div class="grid grid-flow-row grid-cols-1 md:grid-cols-4 gap-5">
+            @foreach ($worksPendientes as $key => $work)
                 <div class="col-span-1">
-                    <div class="border-2 border-{{$colors[$i]}}-800 rounded bg-gradient-to-br from-white to-{{$colors[$i]}}-100 shadow-xl">
-                        <div class="p-1 bg-{{$colors[$i]}}-800">
-                            <p class="text-md text-white"><i class="fas fa-tag"></i> {{$work->categoria->name}}</p>
-                        </div>
-                        <hr class="w-full border-black border-1">
-                        <div class="p-2">
-                            <div>
-                                <p class="text-{{$colors[$i]}}-600"><i class="fas fa-user"></i> {{$work->user->name}}</p>
-                                <p class="text-sm text-gray-500">{{$work->user->userData != null ? $work->user->userData->province.' - '.$work->user->userData->city:''}}</p>
-                            </div>
-                            <hr class="my-1 border-1 border-{{$colors[$i]}}-700">
-                            <div class="my-2">
-                                <p class="text-lg font-bold">{{$work->title}}</p>
-                                <p class="text-md">{{$work->description}}</p>
-                            </div>
-                        
-                        <hr class="my-1 border-1 border-{{$colors[$i]}}-700">
-                        <div class="w-full">
-                            <a href="{{route('Work.show',['work'=>$work])}}"
-                                class="block text-center bg-{{$colors[$i]}}-700 font-bold tracking-widest text-white py-1 rounded"
-                                >VER MAS</a>
-                        </div>
-                        </div>
-                    </div>
+                    @include('works.box-work',['work'=>$work])
                 </div>    
                 @php
                     $i = rand(0,(count($colors)-1));

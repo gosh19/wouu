@@ -58,6 +58,9 @@
     <p class="font-bold text-2xl text-teal-500 mb-3">Postulaciones</p>
     <div class="grid grid-flow-row grid-cols-2 md:grid-cols-3 mb-5">
         <div class="row-span-1 col-span-2">
+            @if ($work->user->id != Auth::id())
+                
+            
             <div class="border-2 grid grid-flow-row border-indigo-800 p-2 bg-gradient-to-br from-white to-indigo-300">
                 <p class="text-2xl text-purple-800 font-bold tracking-wider p-3">
                     <i class="fas fa-user-astronaut fa-2x"></i> 
@@ -106,7 +109,8 @@
                 
                 @endif
                 
-            </div>
+            </div>{{--end caja postulacion--}}
+            @endif
         </div>
     </div>
 
@@ -120,42 +124,49 @@
             $colors = ['orange','red','pink','blue','purple','teal','indigo','gray'];
             $i = rand(0,(count($colors)-1));
         @endphp
-        @foreach ($work->postulations as $key => $postulation)
-            <div class="p-3 border-2 border-{{$colors[$i]}}-700 md:col-span-1 bg-gradient-to-br from-white to-{{$colors[$i]}}-200">
-                <p class="text-xl text-{{$colors[$i]}}-600 font-bold">
-                    <a href="{{route('Tecnico.show',['user'=>$postulation->user])}}">
-                        <i class="fas fa-user-cog"></i> {{$postulation->user->name}}
-                        <span class="text-lg text-gray-500">
-                            {{$work->categoria->hasUser(Auth::id()) == null?'':' - Tecnico en '.$work->categoria->name}}
-                        </span>
-                    </a>
-                </p>
-                <hr class="my-2">
-                <p class="text-lg  text-{{$colors[$i]}}-700">{{$postulation->msg}}</p>
-                <hr class="my-2">
-                <div class="flex justify-between">
-                    <div>
-                        <p>{{$postulation->user->userData != null? $postulation->user->userData->province.' - '.$postulation->user->userData->city:null}}</p>
-                        <p>{{$postulation->user->userData != null? $postulation->user->userData->phone.' - '.$postulation->user->userData->phone_alt:null}}</p>
-                        <small>{{date_format($postulation->created_at,'d-m-Y  H:i')}}</small>
-                    </div>
-                    <div>
-                        <p class="text-2xl font-bold text-{{$colors[$i]}}-700 tracking-widest"><i class="fas fa-dollar-sign"></i> {{$postulation->presupuesto}}</p>
-                        @if ($work->user->id == Auth::id() && $work->postSelected() == null)
-                            
-                        <a class="w-full py-1 px-4 rounded border-2 border-{{$colors[$i]}}-700 text-center text-lg  text-white tracking-wider bg-gradient-to-r from-{{$colors[$i]}}-500 to-{{$colors[$i]}}-900"
-                        onclick="return confirm('¿Seguro/a que desea elegir el presupuesto de {{$postulation->user->name}} por $ {{$postulation->presupuesto}}? ')"
-                        href="{{route('Work.acceptTecno',['postulation'=>$postulation,'work'=>$work])}}"
-                        >Elegir</a>
-                        @endif
+        @if (count($work->postulations) != 0)
+            @foreach ($work->postulations as $key => $postulation)
+                <div class="p-3 border-2 border-{{$colors[$i]}}-700 md:col-span-1 bg-gradient-to-br from-white to-{{$colors[$i]}}-200">
+                    <p class="text-xl text-{{$colors[$i]}}-600 font-bold">
+                        <a href="{{route('Tecnico.show',['user'=>$postulation->user])}}">
+                            <i class="fas fa-user-cog"></i> {{$postulation->user->name}}
+                            <span class="text-lg text-gray-500">
+                                {{$work->categoria->hasUser(Auth::id()) == null?'':' - Tecnico en '.$work->categoria->name}}
+                            </span>
+                        </a>
+                    </p>
+                    <hr class="my-2">
+                    <p class="text-lg  text-{{$colors[$i]}}-700">{{$postulation->msg}}</p>
+                    <hr class="my-2">
+                    <div class="flex justify-between">
+                        <div>
+                            <p>{{$postulation->user->userData != null? $postulation->user->userData->province.' - '.$postulation->user->userData->city:null}}</p>
+                            <p>{{$postulation->user->userData != null? $postulation->user->userData->phone.' - '.$postulation->user->userData->phone_alt:null}}</p>
+                            <small>{{date_format($postulation->created_at,'d-m-Y  H:i')}}</small>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-{{$colors[$i]}}-700 tracking-widest"><i class="fas fa-dollar-sign"></i> {{$postulation->presupuesto}}</p>
+                            @if ($work->user->id == Auth::id() && $work->postSelected() == null)
+                                
+                            <a class="w-full py-1 px-4 rounded border-2 border-{{$colors[$i]}}-700 text-center text-lg  text-white tracking-wider bg-gradient-to-r from-{{$colors[$i]}}-500 to-{{$colors[$i]}}-900"
+                            onclick="return confirm('¿Seguro/a que desea elegir el presupuesto de {{$postulation->user->name}} por $ {{$postulation->presupuesto}}? ')"
+                            href="{{route('Work.acceptTecno',['postulation'=>$postulation,'work'=>$work])}}"
+                            >Elegir</a>
+                            @endif
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            @php
-                $i = rand(0,(count($colors)-1));
-            @endphp
-        @endforeach
+                @php
+                    $i = rand(0,(count($colors)-1));
+                @endphp
+            @endforeach{{--foreach postulations--}}
+        @else
+        <div class="w-full md:col-span-2 p-3 border-2 border-red-500 bg-gradient-to-tr from-pink-200 to-transparent">
+            <p class="text-xl font-bold">Aun no hay postulaciones</p>
+        </div>
+        @endif
+        
     </div>
 
 

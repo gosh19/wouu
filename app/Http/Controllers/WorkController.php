@@ -12,9 +12,14 @@ class WorkController extends Controller
 {
     public function index()
     {
+        $works = null;
+        if (Auth::check()) {
+            $works = Auth::user()->workDisponible();
+        } 
         $worksPendientes = Work::where('state','pendiente')->orderBy('updated_at','desc')->get();
+        
 
-        return view('works.index',['works'=>$worksPendientes]);
+        return view('works.index',['works'=>$works ,'worksPendientes'=>$worksPendientes]);
     }
 
     public function showWork(Work $work)
@@ -33,6 +38,13 @@ class WorkController extends Controller
 
         $postulation->save();
 
+        $notification = \App\Models\NotificationWork::create([
+            'sender'=> Auth::id(),
+            'receiver'=> $postulation->work->user->id,
+            'work_id'=> $work->id,
+            'type'=> 'postulation',
+        ]);
+
         return redirect()->back();
     }
 
@@ -44,6 +56,13 @@ class WorkController extends Controller
 
         $postulation->state = 'selected';
         $postulation->save();
+
+        $notification = \App\Models\NotificationWork::create([
+            'sender'=> Auth::id(),
+            'receiver'=> $postulation->user->id,
+            'work_id'=> $work->id,
+            'type'=> 'selected',
+        ]);
 
         return redirect()->back();
     }

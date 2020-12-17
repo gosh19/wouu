@@ -27,8 +27,9 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
-
+    
     <body style="min-height: 100vh;">
+        @livewire('alan')
         <header>
             <nav class="shadow-2xl">
                 <div class="flex justify-between h-14 py-2 px-4">
@@ -54,7 +55,7 @@
                                         
                                     <div class="absolute top-15 right-0 w-56 bg-purple-500 z-50 rounded-xl text-white">
                                         
-                                        <div x-show="open" class="text-center py-2 relative">
+                                        <div x-show.transition.duration.400ms="open" class="text-center py-2 relative">
                                             <div @click="open=false" class="absolute right-3 top-0 cursor-pointer font-bold">x</div>
                                             <p class="px-7">
                                                 ¡Tienes {{Auth::user()->workDisponible()['cant']}} trabajos disponibles para ver!
@@ -89,11 +90,11 @@
 
                         @guest
                             
-                        <a class="flex-1 self-center text-blue-700" href="{{ route('register') }}">Registrarme <i class="fas fa-user-tag"></i></a>
+                        <a class="flex flex-1 self-center text-blue-700" href="{{ route('register') }}"><p class="hidden md:block mr-2">Registrarme</p> <i class="fas fa-user-plus"></i></a>
                         <div class="flex ml-5">
-                            <a class="px-2 py-1 flex-1 self-center tracking-wider text-sm text-white rounded-2xl bg-gradient-to-r from-pink-600 to-purple-600" 
+                            <a class="px-2 py-1 flex flex-1 self-center tracking-wider text-sm text-white rounded-2xl bg-gradient-to-r from-pink-600 to-purple-600" 
                             href="{{ route('login') }}"
-                            >INGRESAR <i class="fas fa-user-circle"></i></a>
+                            ><p class="hidden md:block mr-2">INGRESAR</p> <i class="fas fa-user-circle flex-1 self-center"></i></a>
                         </div>
                         @endguest
                     </div>
@@ -102,6 +103,8 @@
         </header>
 
         @yield('body')
+
+        
         
         <footer>
             <div class="py-5 shadow-2xl flex justify-around h-24">

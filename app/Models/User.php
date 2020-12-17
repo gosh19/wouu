@@ -91,4 +91,9 @@ class User extends Authenticatable
 
         return $this->hasMany('App\Models\Postulation')->where('state','selected')->get();
     }
+
+    public function notificationWork()
+    {
+        return $this->hasMany('App\Models\NotificationWork', 'receiver', 'id');
+    }
 }
