@@ -1,5 +1,4 @@
 <div x-data="btns()" class="mb-10">
-    <p  class="text-3xl md:text-5xl text-center mb-4">¿Que necesitas?</p> 
     <div class="flex justify-center mx-3 text-white text-sm md:text-xl text-center mb-3">
         <button class="mr-10 bg-gradient-to-r from-pink-600 to-purple-600 py-2 px-6 rounded-xl shadow-2xl"
                 @click="open(true,false)"

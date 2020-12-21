@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Work;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Postulation;
 
@@ -13,12 +14,15 @@ class Score extends Component
     public $score;
     public $comment;
     public $addComment = '';
+    public $canScore;
+    public $message = null;
 
     public function mount(Postulation $postulation)
     {   
         $this->postulation = $postulation;
         $this->score = $postulation->score;
-        $this->comment = $postulation->commment;
+        $this->comment = $postulation->comment;
+        $this->canScore = Auth::id()==$postulation->work->user_id ? true:false;
     }
 
     public function setScore($i)
@@ -38,6 +42,11 @@ class Score extends Component
         $this->postulation->save();
 
         $this->comment = $this->addComment;
+    }
+
+    public function sendMsg()
+    {
+        $this->comment = 32;
     }
 
     public function render()

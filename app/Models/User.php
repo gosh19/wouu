@@ -67,14 +67,13 @@ class User extends Authenticatable
 
     public function workDisponible()
     {
-        $works=['works'=>[],'cant'=>0];
+        $works=[];
         foreach ($this->tecnoDatas(1) as $key => $tecno) {
             foreach ($tecno->WorkDisponible() as $key => $work) {
                 similar_text($work->userData()->city, $this->userData->city, $porcentaje);
                 if ($porcentaje > 65) {
                     # code...
-                    $works['works'][]=$work;
-                    $works['cant'] ++;
+                    $works[]=$work;
                 }
             }
         }
@@ -95,5 +94,6 @@ class User extends Authenticatable
     public function notificationWork()
     {
         return $this->hasMany('App\Models\NotificationWork', 'receiver', 'id');
+
     }
 }

@@ -64,6 +64,10 @@ class WorkController extends Controller
             'type'=> 'selected',
         ]);
 
+        $conversation = new \App\Models\Conversation;
+
+        $conversation->cliente
+
         return redirect()->back();
     }
 }

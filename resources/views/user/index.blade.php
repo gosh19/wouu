@@ -258,29 +258,26 @@
                 @endif
             </div>
         @endif
-
+        <div>
+            @include('intro.btn-buscadores')
+        </div>
         <hr class="border-1 border-purple-800 my-4 mx-5">
 
         <div class="pb-3">
             <p class="text-center text-4xl font-bold text-purple-800 mb-3">Historial de trabajos realizados</p>
 
-            <div class="py-2 px-4 shadow-2xl border-2 border-pink-700 mx-1/12 md:mx-1/5 bg-white">
+            <div class="py-2 px-4 shadow-2xl border-2 border-purple-700 bg-purple-200 mx-1/12 md:mx-1/5">
                 
                 @if (count($user->postulations(1)) != 0)
-                <div class="grid grid-cols-4 gap-3">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
 
                     @foreach ($user->postulations(1) as $key => $value)
                         <div class="col-span-1">
-                            <u class="text-lg font-bold text-red-400">Trabajo realizado</u>
-                            <p>{{$value->work->title}}</p>
-                            <div class="border-2 border-red-700 p-2 bg-gradient-to-br from-red-400 to-purple-200">
-                                <p class="font-bold text-lg">Cliente</p>
-                            </div>
-                            <div class="border-2 border-red-700 p-2">
-
-                                <p><strong class="text-yellow-600">Calificacion:</strong> {{$value->score}} <i class="fas fa-star text-yellow-300"></i></p>
+                            <div class="border-2 border-red-700 rounded bg-gray-100 p-2 h-full">
+                                <p class="text-xl font-bold text-blue-800"><a href="{{route('Work.show',['work'=>$value->work])}}">{{$value->work->title}}</a></p>
                                 <hr class="my-1">
-                                <p>{{$value->comment}}</p>
+                                <p><strong class="text-yellow-600">Calificacion:</strong> {{$value->score}} <i class="fas fa-star text-yellow-300"></i></p>
+                                <p class="text-lg font-bold text-gray-600">{{$value->comment}}</p>
                             </div>
                         </div>
                     @endforeach

@@ -47,10 +47,10 @@
 
                         </a>
                         @auth
-                            @if (Auth::user()->workDisponible()['cant'] != 0)
+                            @if (Auth::user()->workDisponible() != 0)
                             
                             <div x-data={open:true} class="flex-2 relative self-center" >
-                                    <strong class=" text-white bg-purple-600 px-1 ml-1 rounded-lg">{{Auth::user()->workDisponible()['cant']}}</strong>
+                                    <strong class=" text-white bg-purple-600 px-1 ml-1 rounded-lg">{{count(Auth::user()->workDisponible())}}</strong>
                                     @if (session('showWorks'))
                                         
                                     <div class="absolute top-15 right-0 w-56 bg-purple-500 z-50 rounded-xl text-white">
@@ -58,7 +58,7 @@
                                         <div x-show.transition.duration.400ms="open" class="text-center py-2 relative">
                                             <div @click="open=false" class="absolute right-3 top-0 cursor-pointer font-bold">x</div>
                                             <p class="px-7">
-                                                ¡Tienes {{Auth::user()->workDisponible()['cant']}} trabajos disponibles para ver!
+                                                ¡Tienes {{Auth::user()->workDisponible()}} trabajos disponibles para ver!
                                             </p>
                                         </div>
                                     </div>

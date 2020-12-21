@@ -18,6 +18,7 @@
         </div>
         @endauth
         @if ($works != null)
+        {{var_dump($works)}}
             <p class="text-3xl font-bold text-{{$colors[$i]}}-400">Trabajos para vos</p>
             <hr class="border-2 border-{{$colors[$i]}}-800 my-2">
             @if (count($works) == 0)
@@ -29,7 +30,7 @@
             @endif
             <div class="grid grid-flow-row grid-cols-1 md:grid-cols-4 gap-5">
                 
-                @foreach ($works['works'] as $key => $work)
+                @foreach ($works as $key => $work)
                     <div class="col-span-1">
                         @include('works.box-work',['work'=>$work])
                     </div>    

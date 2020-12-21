@@ -5,6 +5,8 @@
         <img class="w-3/4" src="{{ asset('images/inicio.png') }}" alt="Inicio">
     </div>
     <div>
+        <p  class="text-3xl md:text-5xl text-center mb-4">¿Que necesitas?</p> 
+
         @include('intro.btn-buscadores')
     </div>
     <hr class="border-1 border-red-700 mx-6 mb-10">

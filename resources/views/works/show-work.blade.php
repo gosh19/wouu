@@ -58,7 +58,7 @@
     <p class="font-bold text-2xl text-teal-500 mb-3">Postulaciones</p>
     <div class="grid grid-flow-row grid-cols-2 md:grid-cols-3 mb-5">
         <div class="row-span-1 col-span-2">
-            @if ($work->user->id != Auth::id())
+            @if (($work->user->id != Auth::id())&&($work->postSelected() == null))
                 
             
             <div class="border-2 grid grid-flow-row border-indigo-800 p-2 bg-gradient-to-br from-white to-indigo-300">
