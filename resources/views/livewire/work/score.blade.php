@@ -20,12 +20,14 @@
                     {{$postulation->user->userData != null ?$postulation->user->userData->phone:'sin registrar'}}
                 </span>
             </p>
+            {{--
             <p @click="modalMsg=true" class="text-gray-500 text-lg cursor-pointer"
 
             >
                 O enviale un mensaje 
                 <i class="fas fa-envelope text-2xl animate-bounce text-red-600"></i>
             </p>
+            --}}
         </div>
         <div class="border-2 border-yellow-300 p-3 flex justify-between">
             <div class="font-bold">

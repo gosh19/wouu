@@ -67,12 +67,15 @@ class User extends Authenticatable
 
     public function workDisponible()
     {
-        $works=[];
+        if (count($this->tecnoDatas(1)) == 0) {
+            return 0;
+        }
+        
+        $works = [];
         foreach ($this->tecnoDatas(1) as $key => $tecno) {
             foreach ($tecno->WorkDisponible() as $key => $work) {
                 similar_text($work->userData()->city, $this->userData->city, $porcentaje);
                 if ($porcentaje > 65) {
-                    # code...
                     $works[]=$work;
                 }
             }

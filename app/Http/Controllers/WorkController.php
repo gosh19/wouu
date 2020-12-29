@@ -63,11 +63,11 @@ class WorkController extends Controller
             'work_id'=> $work->id,
             'type'=> 'selected',
         ]);
-
+/*
         $conversation = new \App\Models\Conversation;
 
         $conversation->cliente
-
+*/
         return redirect()->back();
     }
 }

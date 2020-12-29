@@ -18,7 +18,6 @@
         </div>
         @endauth
         @if ($works != null)
-        {{var_dump($works)}}
             <p class="text-3xl font-bold text-{{$colors[$i]}}-400">Trabajos para vos</p>
             <hr class="border-2 border-{{$colors[$i]}}-800 my-2">
             @if (count($works) == 0)
@@ -44,14 +43,23 @@
         <p class="text-3xl font-bold text-{{$colors[$i]}}-400">Ultimas publicaciones</p>
         <hr class="border-2 border-{{$colors[$i]}}-800 my-2">
         <div class="grid grid-flow-row grid-cols-1 md:grid-cols-4 gap-5">
-            @foreach ($worksPendientes as $key => $work)
-                <div class="col-span-1">
-                    @include('works.box-work',['work'=>$work])
-                </div>    
-                @php
-                    $i = rand(0,(count($colors)-1));
-                @endphp
-            @endforeach
+
+            @if (count($worksPendientes) == 0)
+            <div class="border-2 border-pink-600 p-3">
+                <p>
+                    No hay trabajos publicados aun
+                </p>
+            </div>
+            @else
+                @foreach ($worksPendientes as $key => $work)
+                    <div class="col-span-1">
+                        @include('works.box-work',['work'=>$work])
+                    </div>    
+                    @php
+                        $i = rand(0,(count($colors)-1));
+                    @endphp
+                @endforeach
+            @endif
         </div>
     </div>
 @endsection
