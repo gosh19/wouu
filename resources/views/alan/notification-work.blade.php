@@ -13,6 +13,13 @@
         href="{{route('Work.show',['work'=>$notification->work])}}">trabajo</a> 
     donde te postulaste
     @break
+@case('msg')
+    <span class="font-bold text-gray-500">{{$notification->getSender->name}}</span> 
+    te envio un mensaje sobre un
+    <a class="font-bold text-blue-800"
+        href="{{route('Work.show',['work'=>$notification->work])}}">trabajo</a> 
+    donde te postulaste
+    @break
 @default
 @endswitch
 </div>

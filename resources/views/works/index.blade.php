@@ -18,7 +18,6 @@
         </div>
         @endauth
         @if ($works != null)
-        {{var_dump($works)}}
             <p class="text-3xl font-bold text-{{$colors[$i]}}-400">Trabajos para vos</p>
             <hr class="border-2 border-{{$colors[$i]}}-800 my-2">
             @if (count($works) == 0)

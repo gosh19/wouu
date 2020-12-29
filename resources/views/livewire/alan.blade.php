@@ -52,8 +52,8 @@
     </div>
     <div wire:click="showNotification()" class="cursor-pointer h-40 relative">
 
-        <img x-show="showNumber" class="h-full"  src="{{ asset('images/alan.png') }}" alt="">
-        <img x-show="!showNumber" class="h-full"  src="{{ asset('images/alan2.png') }}" alt="">
+        <img x-show="!showNotifications" class="h-full"  src="{{ asset('images/alan.png') }}" alt="">
+        <img x-show="showNotifications" class="h-full"  src="{{ asset('images/alan2.png') }}" alt="">
 
     </div>
 </div>

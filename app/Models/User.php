@@ -96,4 +96,22 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\NotificationWork', 'receiver', 'id');
 
     }
+    
+    public function unSeenMsg()
+    {
+        $cant = \App\Models\Message::where('receiver',$this->id)
+                                    ->count();
+
+        return $cant;
+    }
+
+    public function converAsTecnico()
+    {
+        return $this->hasMany('App\Models\Conversation', 'tecnico', 'id')->orderBy('id','desc');
+    }
+
+    public function converAsCliente()
+    {
+        return $this->hasMany('App\Models\Conversation', 'cliente', 'id')->orderBy('id','desc');
+    }
 }

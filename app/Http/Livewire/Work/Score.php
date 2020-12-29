@@ -6,6 +6,8 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Postulation;
+use App\Models\Conversation;
+use App\Models\Message;
 
 class Score extends Component
 {
@@ -16,6 +18,7 @@ class Score extends Component
     public $addComment = '';
     public $canScore;
     public $message = null;
+    public $conversation;
 
     public function mount(Postulation $postulation)
     {   
@@ -23,6 +26,7 @@ class Score extends Component
         $this->score = $postulation->score;
         $this->comment = $postulation->comment;
         $this->canScore = Auth::id()==$postulation->work->user_id ? true:false;
+        $this->conversation = Conversation::firstOrCreate(['cliente'=>$postulation->work->user_id,'tecnico'=>$postulation->user_id]);
     }
 
     public function setScore($i)
@@ -46,7 +50,23 @@ class Score extends Component
 
     public function sendMsg()
     {
-        $this->comment = 32;
+        $message = new Message;
+
+        $message->conversation_id = $this->conversation->id;
+        $message->sender = Auth::id();
+        $message->receiver = $this->postulation->user_id == Auth::id()?$this->postulation->work->user_id:$this->postulation->user_id;
+        $message->msg = $this->message;
+
+        $message->save();
+        
+        $this->message = null;
+
+        $notification = \App\Models\NotificationWork::create([
+            'sender'=> Auth::id(),
+            'receiver'=> $this->postulation->user_id == Auth::id()?$this->postulation->work->user_id:$this->postulation->user_id,
+            'work_id'=> $this->postulation->work->id,
+            'type'=> 'msg',
+        ]);
     }
 
     public function render()

@@ -12,9 +12,7 @@
             </div>
         </div>
         <div class="p-3">
-            <p class="text-xl text-gray-500"
-                @click="canScore=true"
-            >
+            <p class="text-xl text-gray-500">
                 Puedes contactorlo a su numero registrado 
                 <span class="font-bold text-green-500">
                     {{$postulation->user->userData != null ?$postulation->user->userData->phone:'sin registrar'}}

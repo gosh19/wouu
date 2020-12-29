@@ -68,6 +68,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/accept-tecno/{postulation}/{work}', [WorkController::class, 'acceptTecno'])->name('Work.acceptTecno');
 
+    Route::get('/messages/{user}', App\Http\Livewire\Message\Base::class)->name('messages');
+
     /****ADMIN */
     Route::middleware('admin')->group(function () {
         Route::get('/Admin', [AdminController::class, 'index'])->name('Admin.index');

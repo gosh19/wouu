@@ -66,7 +66,10 @@ class WorkController extends Controller
 
         $conversation = new \App\Models\Conversation;
 
-        $conversation->cliente
+        $conversation->cliente = Auth::id();
+        $conversation->tecnico = $postulation->user->id;
+
+        $conversation->save();
 
         return redirect()->back();
     }

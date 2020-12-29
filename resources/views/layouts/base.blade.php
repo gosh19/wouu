@@ -58,7 +58,7 @@
                                         <div x-show.transition.duration.400ms="open" class="text-center py-2 relative">
                                             <div @click="open=false" class="absolute right-3 top-0 cursor-pointer font-bold">x</div>
                                             <p class="px-7">
-                                                ¡Tienes {{Auth::user()->workDisponible()}} trabajos disponibles para ver!
+                                                ¡Tienes {{count(Auth::user()->workDisponible())}} trabajos disponibles para ver!
                                             </p>
                                         </div>
                                     </div>
@@ -77,12 +77,27 @@
                             <a class="px-2 py-1 flex flex-auto self-center mr-2 tracking-wider text-sm text-white rounded-2xl bg-gradient-to-r from-pink-600 to-purple-600" 
                             href="{{ route('User.index') }}"
                             >
-                            <p class="hidden md:block mr-2">MI CUENTA</p>
-                             <i class="fas fa-user-circle flex-1 self-center"></i></a>
+                                <p class="hidden md:block mr-2">MI CUENTA</p>
+                                <i class="fas fa-user-circle flex-1 self-center"></i>
+                            </a>
+                            <a  href="{{route('messages',['user'=>Auth::user()])}}"
+                                class="px-2 py-1 flex flex-auto self-center mr-2 tracking-wider text-sm text-white rounded-2xl bg-gradient-to-r from-pink-600 to-purple-600" 
+                            >
+                                <div class="relative">
+                                    @if (Auth::user()->unSeenMsg() == 0)
+                                        <i class="far fa-envelope-open"></i>
+                                    @else
+                                        <i class="far fa-envelope"></i>
+                                        <p class="absolute top-4 left-3 font-bold px-1 bg-red-600 rounded-full">{{Auth::user()->unSeenMsg()}}</p>
+                                    @endif
+                                </div>
+                            </a>
                             <a class="flex-auto self-center text-sm py-1 px-2  text-white rounded-2xl bg-gradient-to-r from-purple-600 to-blue-600" 
-                            href="{{ route('logout') }}"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                            ><i class="fas fa-door-open"></i></a>
+                                href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                            >
+                                <i class="fas fa-door-open"></i>
+                            </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>

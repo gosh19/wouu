@@ -17,6 +17,7 @@ class CreateConversationsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('cliente');
             $table->unsignedBigInteger('tecnico');
+
             $table->timestamps();
 
             $table->foreign('cliente')->references('id')->on('users')->onDelete('cascade');
